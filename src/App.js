@@ -7,12 +7,7 @@ import Details from './pages/Details'
 
 const App = () => { 
  
-const[loadingCategories,setLoadingCategories] = useState(true)
-const[errorCategories,setErrorCategories] = useState(null)
-
-
-
-
+const[showLoading,setShowLoading]=useState(false)
 
 const[items,setItems] = useState([])
 const[backup,setBackUp]=useState([])
@@ -21,7 +16,7 @@ const[backup,setBackUp]=useState([])
   
     const[error,setError] = useState(null)
 
-    useEffect(()=>{ 
+    useEffect(()=>{  
         fetchProducts()
     },[]) 
 
@@ -30,11 +25,13 @@ const[backup,setBackUp]=useState([])
  
 
     const fetchProducts = () => {
+      setShowLoading(true)
         const res=axios.get('/products')
         .then(res=>{
             setItems(res.data)
             setBackUp(res.data)
             setIsLoading(false)
+            setShowLoading(false) 
         })
         .catch(err=>{ 
             setError(err)
@@ -42,14 +39,8 @@ const[backup,setBackUp]=useState([])
         })
     }
     //fetchProducts by category
-    const fetchProductByCategory = (category) => {
-      const res=axios.get(`/products/category/${category}`)
-      .then(res=>{
-          setItems(res.data)        
-      })
-      .catch(err=>{
-          setError(err)         
-      })
+    const fetchProductByCategory = (category) => {     
+      setItems(backup.filter(item=>item.category===category))
     }
 
     const[cart,setCart]=useState([])
@@ -77,10 +68,7 @@ const[backup,setBackUp]=useState([])
         setCart(cart.filter(item=>item.id!==id))
        }
     }
-    //clear cart
-    const clearCart = () => {
-        setCart([])
-    }
+  
    
     //search products
     const[search,setSearch] = useState('')
@@ -96,9 +84,9 @@ const[backup,setBackUp]=useState([])
       } 
       if(search.length === 0 || search=== null || search=== undefined || search === ''){
         results=backup
-      }
+      } 
       setItems(results)
-    },[search])
+    },[search,backup,items])
    
     const[openCart,setOpenCart] = useState(false)
 
@@ -119,11 +107,11 @@ const[backup,setBackUp]=useState([])
     <BrowserRouter>
     <Navbar search={search} handleSearch ={handleSearch} cart={cart} openCart={openCart} toggleCart={toggleCart} removeFromCart={removeFromCart } incrementItem={incrementItem} total={total} />
     <Routes>
-      <Route path="/" element={<Home items={items} isLoading={isLoading}  fetchProductByCategory={fetchProductByCategory} fetchProducts={fetchProducts} addToCart={addToCart}  />}/>
-      <Route path="/details/:id" element={<Details addToCart={addToCart} />}/>
+      <Route path="/" element={<Home items={items} isLoading={isLoading}  fetchProductByCategory={fetchProductByCategory} fetchProducts={fetchProducts} addToCart={addToCart} showLoading={showLoading} />}/>
+      <Route path="/details/:id" element={<Details addToCart={addToCart} showLoading={showLoading}  />}/>
     </Routes>
     </BrowserRouter>
-  )
-}
+  ) 
+} 
 
 export default App

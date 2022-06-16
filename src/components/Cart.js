@@ -9,9 +9,9 @@ const Cart = ({openCart,toggleCart,cart,removeFromCart,incrementItem,total }) =>
   return (
     <>
      
-    <div className={`w-full left-0 fixed h-[100vh]   px-3 top-0  mx-auto py-3 border-6 border-slate-600  flex justify-center items-start transition-all duration-300 ease-linear ${openCart ? 'z-40 bg-[#0000004b]':'' } `}>
+    <div className={`w-full left-0 fixed h-[100vh]   px-3 top-0  mx-auto py-3 border-6 border-slate-600  flex justify-center items-center transition-all duration-300 ease-linear ${openCart ? 'z-40 bg-[#0000004b]':'' } `}>
 
-       <div className={`w-[96%] md:w-[800px] bg-white h-[50vh] border-t-4 border-t-slate-50 overflow-y-auto mt-[30px] shadow-lg shadow-black relative  transition-all duration-1000 ease-linear ${openCart ? 'translate-y-0':'translate-y-[2000px]'}`}>
+       <div className={`w-[96%] md:w-[800px] bg-white h-[60vh] border-t-4 border-t-slate-50 overflow-y-auto mt-[30px] shadow-lg shadow-black relative  transition-all duration-1000 ease-linear ${openCart ? 'translate-y-0':'translate-y-[2000px]'}`}>
        <div className='w-full h-[40px] bg-slate-900  border-b-2 border-slate-50 sticky top-0'>
            <AiFillCloseCircle className='absolute right-2 top-1 text-2xl cursor-pointer text-slate-50' onClick={toggleCart} />
            </div>
@@ -20,7 +20,7 @@ const Cart = ({openCart,toggleCart,cart,removeFromCart,incrementItem,total }) =>
                <h6 className='text-sm text-slate-700 font-ibm underline font-bold'>Total - ${total.toFixed(2)}</h6>
                </div>
                 
-                    {cart.length < 1 && <div className='w-full bg-white py-2 px-2 md:px-3 h-[30vh]'><span className='text-sm inline-block'>Cart is Empty</span> <ImSad className='text-2xl inline-block ml-2'/> </div>}
+                    {cart.length < 1 && <div className='w-full bg-white py-2 px-2 md:px-3 h-[40vh]'><span className='text-sm inline-block'>Cart is Empty</span> <ImSad className='text-2xl inline-block ml-2'/> </div>}
  
                     {cart.length > 0 && cart.map(item=>(
                     <div key={item.id} className='w-full grid  grid-cols-4 gap-y-4 bg-white px-2 md:px-3'>
