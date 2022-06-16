@@ -9,7 +9,7 @@ const Home = ({items,fetchProductByCategory,fetchProducts,addToCart,showLoading}
     <div className='relative z-[5] bg-slate-white'><nav className='w-full  md:flex md:justify-center md:items-center py-2 shadow-sm shadow-black sticky top-0 z-10 bg-slate-900'>
 
             <ul className='items-center font-frank grid grid-cols-2 md:grid-cols-5 place-items-center'>
-                <li className='inline-block mr-5 text-slate-50 font-ibm text-sm '><button className='  font-ibm text-sm' onClick={()=>fetchProducts()}>All Products</button> </li>
+                <li className='inline-block mr-5 text-slate-50 font-ibm text-sm '><button className='  font-ibm text-sm' onClick={()=>fetchProductByCategory('all')}>All Products</button> </li>
                 <li className='inline-block mr-5 text-slate-50 font-ibm text-sm '><button className='  font-ibm text-sm' onClick={()=>fetchProductByCategory('electronics')}>Electronics</button> </li>
                 <li className='inline-block mr-5 text-slate-50 font-ibm text-sm '><button className='  font-ibm text-sm' onClick={()=>fetchProductByCategory('jewelery')}>Jewelery</button> </li>
                 <li className='inline-block mr-5 text-slate-50 font-ibm text-sm '><button className='  font-ibm text-sm' onClick={()=>fetchProductByCategory("men's clothing")}>Men's clothing</button> </li>

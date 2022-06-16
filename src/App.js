@@ -39,8 +39,12 @@ const[backup,setBackUp]=useState([])
         })
     }
     //fetchProducts by category
-    const fetchProductByCategory = (category) => {     
+    const fetchProductByCategory = (category) => {
+           if(category==='all'){
+        setItems(backup)
+      }else{
       setItems(backup.filter(item=>item.category===category))
+      }
     }
 
     const[cart,setCart]=useState([])
@@ -68,7 +72,10 @@ const[backup,setBackUp]=useState([])
         setCart(cart.filter(item=>item.id!==id))
        }
     }
-  
+    //clear cart
+    const clearCart = () => {
+        setCart([])
+    }
    
     //search products
     const[search,setSearch] = useState('')
@@ -84,9 +91,9 @@ const[backup,setBackUp]=useState([])
       } 
       if(search.length === 0 || search=== null || search=== undefined || search === ''){
         results=backup
-      } 
+      }
       setItems(results)
-    },[search,backup,items])
+    },[search])
    
     const[openCart,setOpenCart] = useState(false)
 
@@ -108,10 +115,10 @@ const[backup,setBackUp]=useState([])
     <Navbar search={search} handleSearch ={handleSearch} cart={cart} openCart={openCart} toggleCart={toggleCart} removeFromCart={removeFromCart } incrementItem={incrementItem} total={total} />
     <Routes>
       <Route path="/" element={<Home items={items} isLoading={isLoading}  fetchProductByCategory={fetchProductByCategory} fetchProducts={fetchProducts} addToCart={addToCart} showLoading={showLoading} />}/>
-      <Route path="/details/:id" element={<Details addToCart={addToCart} showLoading={showLoading}  />}/>
+      <Route path="/details/:id" element={<Details addToCart={addToCart} showLoading={showLoading}/>}/>
     </Routes>
     </BrowserRouter>
-  ) 
+  )
 } 
 
 export default App
